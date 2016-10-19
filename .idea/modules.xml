@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/finite-fields.iml" filepath="$PROJECT_DIR$/.idea/modules/finite-fields.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/finite-fields_main.iml" filepath="$PROJECT_DIR$/.idea/modules/finite-fields_main.iml" group="finite-fields" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/finite-fields_test.iml" filepath="$PROJECT_DIR$/.idea/modules/finite-fields_test.iml" group="finite-fields" />
+    </modules>
+  </component>
+</project>
