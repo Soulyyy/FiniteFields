@@ -11,7 +11,7 @@ public class FiniteField {
   public int[] forceToField(int[] ints) {
     int[] resp = new int[ints.length];
     for (int i = 0; i < ints.length; i++) {
-      resp[i] = ints[i] % prime;
+      resp[i] = ((ints[i] % prime) + prime) % prime;
     }
     return resp;
   }
