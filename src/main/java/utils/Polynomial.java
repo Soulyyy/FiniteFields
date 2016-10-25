@@ -33,12 +33,16 @@ public class Polynomial {
     Polynomial first = this;
     Polynomial second = polynomial;
     Polynomial[] divide = first.divide(second);
-    while(!divide[1].equals(new Polynomial(new int[]{0}, polynomial.finiteField))) {
+    while (!divide[1].equals(new Polynomial(new int[0], polynomial.finiteField)) && !divide[0].equals(new Polynomial(new int[0], polynomial.finiteField))) {
       first = second;
       second = divide[0];
       divide = first.divide(second);
     }
-    return divide[0];
+    if (divide[0].equals(new Polynomial(new int[0], polynomial.finiteField))) {
+      return new Polynomial(new int[]{1}, this.finiteField);
+    } else {
+      return divide[0];
+    }
   }
 
 
@@ -52,7 +56,7 @@ public class Polynomial {
       return new Polynomial[]{result, remainder};
     }
     int degree = this.degree() - polynomial.degree();
-    if (degree == 0) {
+    if (degree == 0 && this.polynomial.length <= 1) {
       return new Polynomial[]{this, new Polynomial(new int[]{0}, finiteField)};
     }
     int[] ar = new int[degree + 1];
@@ -61,7 +65,9 @@ public class Polynomial {
     Polynomial newPoly = new Polynomial(ar, finiteField);
     Polynomial multiplicationResult = newPoly.multiply(polynomial);
     Polynomial subtractionResult = this.subtract(multiplicationResult);
-    return polynomial.divide(subtractionResult);
+    Polynomial[] resp = subtractionResult.divide(polynomial);
+    resp[0] = resp[0].add(newPoly);
+    return resp;
   }
 
   private int[] addElements(int[] bigger, int[] smaller) {

@@ -9,7 +9,7 @@ public class PolynomialGCDTest {
   private static final FiniteField FINITE_FIELD = new FiniteField(7);
 
   @Test
-  public void gcd() {
+  public void gcdTest() {
     Polynomial first = new Polynomial(new int[]{1, 2, 1}, FINITE_FIELD);
     Polynomial second = new Polynomial(new int[]{1, 1}, FINITE_FIELD);
     Polynomial expectedResult = new Polynomial(new int[]{1, 1}, FINITE_FIELD);
@@ -17,11 +17,19 @@ public class PolynomialGCDTest {
   }
 
   @Test
-  public void gcd2() {
+  public void gcdRemainderOneTest() {
     FiniteField finiteField = new FiniteField(2);
     Polynomial first = new Polynomial(new int[]{1, 1, 0, 0, 1, 1}, finiteField);
     Polynomial second = new Polynomial(new int[]{1, 0, 1, 0, 1}, finiteField);
     Polynomial expectedResult = new Polynomial(new int[]{1}, finiteField);
+    assertEquals("Expecting a polynomial", expectedResult, first.gcd(second));
+  }
+
+  @Test
+  public void gcdOfOneTest() {
+    Polynomial first = new Polynomial(new int[]{1, 2, 1}, FINITE_FIELD);
+    Polynomial second = new Polynomial(new int[]{1}, FINITE_FIELD);
+    Polynomial expectedResult = new Polynomial(new int[]{1}, FINITE_FIELD);
     assertEquals("Expecting a polynomial", expectedResult, first.gcd(second));
   }
 }

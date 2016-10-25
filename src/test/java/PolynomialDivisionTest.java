@@ -15,4 +15,12 @@ public class PolynomialDivisionTest {
     Polynomial expectedResult = new Polynomial(new int[]{1, 1}, FINITE_FIELD);
     assertEquals("Expecting a polynomial", expectedResult, first.divide(second)[0]);
   }
+
+  @Test
+  public void divideByOne() {
+    Polynomial first = new Polynomial(new int[]{1, 2, 1}, FINITE_FIELD);
+    Polynomial second = new Polynomial(new int[]{1}, FINITE_FIELD);
+    Polynomial expectedResult = new Polynomial(new int[]{1, 2, 1}, FINITE_FIELD);
+    assertEquals("Expecting a polynomial", expectedResult, first.divide(second)[0]);
+  }
 }
