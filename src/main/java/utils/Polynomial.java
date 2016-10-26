@@ -1,6 +1,8 @@
 package utils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Polynomial {
 
@@ -43,6 +45,25 @@ public class Polynomial {
     } else {
       return divide[0];
     }
+  }
+
+  public List<Polynomial[]> extendedEuclidean(Polynomial polynomial) {
+    List<Polynomial[]> sequenceOfSteps = new ArrayList<>();
+    //Like GCD but store intermediate results
+    Polynomial first = this;
+    Polynomial second = polynomial;
+    Polynomial[] divide = first.divide(second);
+    while (!divide[1].equals(new Polynomial(new int[0], polynomial.finiteField)) && !divide[0].equals(new Polynomial(new int[0], polynomial.finiteField))) {
+      first = second;
+      second = divide[0];
+      divide = first.divide(second);
+      if (divide[0].equals(new Polynomial(new int[0], polynomial.finiteField))) {
+        divide[0] = new Polynomial(new int[]{1}, this.finiteField);
+      }
+      Polynomial[] resultElement = new Polynomial[]{first, divide[0], divide[1]};
+      sequenceOfSteps.add(resultElement);
+    }
+    return sequenceOfSteps;
   }
 
 

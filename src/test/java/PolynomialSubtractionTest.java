@@ -45,7 +45,7 @@ public class PolynomialSubtractionTest {
   public void testSizeReductionSubtraction() {
     Polynomial first = new Polynomial(new int[]{1, 3, 2, 2}, finiteField);
     Polynomial second = new Polynomial(new int[]{1, 2, 1, 1}, finiteField);
-    Polynomial expectedResult = new Polynomial(new int[]{0, 1, 1, 1}, finiteField);
+    Polynomial expectedResult = new Polynomial(new int[]{1, 1, 1}, finiteField);
     assertEquals("Expecting a polynomial x^2 + x^", expectedResult, first.subtract(second));
   }
 }
