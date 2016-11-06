@@ -47,6 +47,16 @@ public class Polynomial {
     }
   }
 
+  public Polynomial additiveInverse() {
+    int[] ar = new int[this.polynomial.length];
+    for (int i = 0; i < ar.length; i++) {
+      ar[i] = -this.polynomial[i];
+    }
+    ar = finiteField.forceToField(ar);
+    ar = reduceToNonZeroSize(ar);
+    return new Polynomial(ar, finiteField);
+  }
+
   public List<Polynomial[]> extendedEuclidean(Polynomial polynomial) {
     List<Polynomial[]> sequenceOfSteps = new ArrayList<>();
     //Like GCD but store intermediate results
@@ -96,7 +106,9 @@ public class Polynomial {
     for (int i = smaller.length - 1; i >= 0; i--) {
       bigger[i + dif] += smaller[i];
     }
-    return finiteField.forceToField(bigger);
+    bigger = finiteField.forceToField(bigger);
+    bigger = reduceToNonZeroSize(bigger);
+    return bigger;
   }
 
   private int[] subtractElements(int[] first, int[] second) {
@@ -177,7 +189,7 @@ public class Polynomial {
 
   @Override
   public String toString() {
-    if (polynomial.length == 0) {
+    if (polynomial == null || polynomial.length == 0) {
       return "0";
     }
     StringBuilder sb = new StringBuilder();
@@ -208,5 +220,27 @@ public class Polynomial {
     int result = Arrays.hashCode(polynomial);
     result = 31 * result + (finiteField != null ? finiteField.hashCode() : 0);
     return result;
+  }
+
+  private int[] reduceToNonZeroSize(int[] polynomial) {
+    int newLength = 0;
+    for (int i = 0; i < polynomial.length; i++) {
+      if (polynomial[i] == 0) {
+        newLength = i;
+        break;
+      } else {
+        newLength = polynomial.length - i;
+        break;
+      }
+    }
+    if (newLength == polynomial.length - 1) {
+      return polynomial;
+    }
+    int[] ar = new int[newLength];
+    for (int i = polynomial.length - newLength; i < polynomial.length; i++) {
+      int offset = polynomial.length - newLength;
+      ar[i] = polynomial[i + offset];
+    }
+    return ar;
   }
 }

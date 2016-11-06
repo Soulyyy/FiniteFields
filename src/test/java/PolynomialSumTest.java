@@ -11,7 +11,7 @@ public class PolynomialSumTest {
     FiniteField finiteField = new FiniteField(5);
     Polynomial first = new Polynomial(new int[]{2, 2, 2}, finiteField);
     Polynomial second = new Polynomial(new int[]{3, 3, 3}, finiteField);
-    assertEquals("The result should be a zero polynomial", new Polynomial(new int[]{0,0,0}, finiteField), first.add(second));
+    assertEquals("The result should be a zero polynomial", new Polynomial(new int[]{}, finiteField), first.add(second));
   }
 
   @Test
@@ -20,5 +20,13 @@ public class PolynomialSumTest {
     Polynomial first = new Polynomial(new int[] {2,2,2,2}, finiteField);
     Polynomial second = new Polynomial(new int[] {2,2,8}, finiteField);
     assertEquals("The result should be 2x^3 + 4x^2 + 4x^1 + 3", new Polynomial(new int[]{2,4,4,3}, finiteField), first.add(second));
+  }
+
+  @Test
+  public void testAdditionWithInverse() {
+    FiniteField finiteField = new FiniteField(5);
+    Polynomial polynomial = new Polynomial(new int[]{2,4,4,5,6}, finiteField);
+    Polynomial inverse = polynomial.additiveInverse();
+    assertEquals("The result should be one", new Polynomial(new int[]{}, finiteField), polynomial.add(inverse));
   }
 }
