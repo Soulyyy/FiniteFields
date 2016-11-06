@@ -15,4 +15,20 @@ public class FiniteField {
     }
     return resp;
   }
+
+  public int findElementMultiplicativeInverse(int element) {
+    if(element == 0) {
+      return 1;
+    }
+    for (int i = 0; i < prime; i++) {
+      if((((element * i) % prime) + prime) % prime == 1) {
+        return i;
+      }
+    }
+    throw new IllegalStateException("There must be a multiplicative inverse element");
+  }
+
+  public int forceElementToField(int element) {
+    return ((element % prime) + prime) % prime;
+  }
 }

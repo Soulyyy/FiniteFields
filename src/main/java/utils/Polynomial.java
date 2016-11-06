@@ -222,24 +222,23 @@ public class Polynomial {
     return result;
   }
 
-  private int[] reduceToNonZeroSize(int[] polynomial) {
-    int newLength = 0;
+  public int[] reduceToNonZeroSize(int[] polynomial) {
+
+    int sizeToReduceby = 0;
     for (int i = 0; i < polynomial.length; i++) {
-      if (polynomial[i] == 0) {
-        newLength = i;
-        break;
-      } else {
-        newLength = polynomial.length - i;
+      if(polynomial[i] == 0) {
+        sizeToReduceby = i+1;
+      }
+      else {
         break;
       }
     }
-    if (newLength == polynomial.length - 1) {
+    if (sizeToReduceby == 0) {
       return polynomial;
     }
-    int[] ar = new int[newLength];
-    for (int i = polynomial.length - newLength; i < polynomial.length; i++) {
-      int offset = polynomial.length - newLength;
-      ar[i] = polynomial[i + offset];
+    int[] ar = new int[polynomial.length - sizeToReduceby];
+    for (int i = 0; i < polynomial.length - sizeToReduceby; i++) {
+      ar[i] = polynomial[i + sizeToReduceby];
     }
     return ar;
   }
