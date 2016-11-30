@@ -66,4 +66,12 @@ public class ExtensionField {
     Polynomial[] response = first.divide(second);
     return new Polynomial[]{getPolynomialInField(response[0]), getPolynomialInField(response[0])};
   }
+
+  public Polynomial power(Polynomial polynomial, int power) {
+    Polynomial current = polynomial;
+    for (int i = 0; i < power - 1; i++) {
+      current = multiply(current, polynomial);
+    }
+    return getPolynomialInField(current);
+  }
 }

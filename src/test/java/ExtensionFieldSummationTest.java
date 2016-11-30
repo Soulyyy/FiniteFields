@@ -31,4 +31,9 @@ public class ExtensionFieldSummationTest {
 
     assertEquals("The sum should be the same", new Polynomial(new int[]{2,0,1}, finiteField), field.add(polynomial, new Polynomial(new int[]{}, finiteField)));
   }
+
+  @Test
+  public void testSumDifferentDegree() {
+    FiniteField finiteField = new FiniteField(3);
+  }
 }
