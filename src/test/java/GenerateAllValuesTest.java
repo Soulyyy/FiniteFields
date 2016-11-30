@@ -17,9 +17,9 @@ public class GenerateAllValuesTest {
       System.out.println(polynomial);
     }
     System.out.println(polynomialList.size());
-    System.out.println(GeneralOperation.whichRootOfUnity(extensionField, new Polynomial(new int[]{1, 1, 1, 1}, field)));
+    System.out.println(GeneralOperation.smallestRootOfUnity(extensionField, new Polynomial(new int[]{1, 1, 1, 1}, field)));
     for (Polynomial polynomial : polynomialList) {
-      System.out.println(GeneralOperation.whichRootOfUnity(extensionField, polynomial));
+      System.out.println(GeneralOperation.smallestRootOfUnity(extensionField, polynomial));
     }
   }
 }

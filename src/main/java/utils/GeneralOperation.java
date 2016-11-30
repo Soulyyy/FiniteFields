@@ -32,13 +32,21 @@ public class GeneralOperation {
     }
   }
 
-  public static int whichRootOfUnity(ExtensionField field, Polynomial polynomial) {
-    for(int i = 1; i <= field.polynomial.degree() * field.underlying.prime * 2; i++) {
+  public static int smallestRootOfUnity(ExtensionField field, Polynomial polynomial) {
+    for (int i = 1; i <= Math.ceil(Math.pow(field.underlying.prime, field.polynomial.degree())) + 1; i++) {
       Polynomial powerPoly = field.power(polynomial, i);
       if(powerPoly.equals(new Polynomial(new int[]{1}, field.underlying))){
         return i;
       }
     }
     return -1;
+  }
+
+  public static boolean isNthRootOfUnity(ExtensionField field, Polynomial polynomial, int rootOfUnity) {
+    Polynomial powerPoly = field.power(polynomial, rootOfUnity);
+    if (powerPoly.equals(new Polynomial(new int[]{1}, field.underlying))) {
+      return true;
+    }
+    return false;
   }
 }

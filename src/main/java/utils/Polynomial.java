@@ -136,6 +136,9 @@ public class Polynomial {
   }
 
   private int[] multiplyElements(int[] first, int[] second) {
+    if (first.length == 0 && second.length == 0) {
+      return new int[]{0};
+    }
     int[] resp = new int[first.length + second.length - 1];
     for (int i = 0; i < first.length; i++) {
       for (int j = 0; j < second.length; j++) {
