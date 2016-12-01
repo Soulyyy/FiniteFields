@@ -4,7 +4,13 @@ import utils.FiniteField;
 import utils.GeneralOperation;
 import utils.Polynomial;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class FiniteFieldsHomeworkTests {
 
@@ -23,9 +29,32 @@ public class FiniteFieldsHomeworkTests {
     FiniteField finiteField = new FiniteField(29);
     ExtensionField extensionField = new ExtensionField(finiteField, new Polynomial(new int[]{1, 1}, finiteField));
     List<Polynomial> polynomials = GeneralOperation.getAllFieldElements(extensionField);
+    Set<Polynomial> seventhRoots = new HashSet<>();
+    Set<Polynomial> eightRoots = new HashSet<>();
+    Set<Polynomial> ninthRoots = new LinkedHashSet<>();
+    List<Polynomial> list = new ArrayList<Polynomial>(ninthRoots);
     for (Polynomial polynomial : polynomials) {
-      printRootOfUnity(extensionField, polynomial);
+      seventhRoots.add(GeneralOperation.nthRoot(extensionField, polynomial, 7));
+      eightRoots.add(GeneralOperation.nthRoot(extensionField, polynomial, 8));
+      ninthRoots.add(GeneralOperation.nthRoot(extensionField, polynomial, 9));
+      //System.out.println(polynomial.toString() + ": " + GeneralOperation.hasNthRoot(extensionField, polynomial, 8));
+
     }
+    System.out.println("seventh");
+    for(Polynomial polynomial : seventhRoots) {
+      System.out.println(polynomial);
+    }
+    System.out.println("eight");
+    for(Polynomial polynomial : eightRoots) {
+      System.out.println(polynomial);
+    }
+    System.out.println("ninth");
+    for(Polynomial polynomial : list) {
+      System.out.println(polynomial);
+    }
+    System.out.println(28.0/gcd(7,28));
+    System.out.println(28.0/gcd(8,28));
+    System.out.println(28.0/gcd(9,28));
   }
 
   private void printRootOfUnity(ExtensionField field, Polynomial polynomial) {
@@ -51,9 +80,16 @@ public class FiniteFieldsHomeworkTests {
     FiniteField finiteField = new FiniteField(5);
     ExtensionField extensionField = new ExtensionField(finiteField, new Polynomial(new int[]{1, 1, 1}, finiteField));
     List<Polynomial> polynomials = GeneralOperation.getAllFieldElements(extensionField);
+    Set<Polynomial> thirdRoots = new HashSet<>();
     for (Polynomial polynomial : polynomials) {
-      printIfElementHasNthRootOfUnity(extensionField, polynomial, 3);
+      //printIfElementHasNthRootOfUnity(extensionField, polynomial, 3);
+      thirdRoots.add(GeneralOperation.nthRoot(extensionField, polynomial, 3));
+
     }
+    for(Polynomial polynomial : thirdRoots) {
+      System.out.print(polynomial+", ");
+    }
+    System.out.println("");
     System.out.println(polynomials.size());
   }
 
@@ -65,6 +101,22 @@ public class FiniteFieldsHomeworkTests {
       Polynomial inverse = new Polynomial(new int[]{1}, finiteField).additiveInverse();
       //System.out.println(inverse);
       printIfElementHasNthRootOfUnity(extensionField, inverse, 4);
+    }
+
+    List<Integer> ints = new ArrayList<>();
+    for (int i = 1; i < 100; i++) {
+      if (isPrime(i)) {
+        ints.add(i);
+        int j = 2;
+        while (Math.pow(i, j) < 100) {
+          ints.add((int) Math.round(Math.pow(i, j)));
+          j++;
+        }
+      }
+    }
+    Collections.sort(ints);
+    for (int i : ints) {
+      System.out.print(i + ", ");
     }
   }
 
@@ -102,6 +154,11 @@ public class FiniteFieldsHomeworkTests {
     }
   }
 
+  @Test
+  public void tmpTest() {
+    System.out.println(phi(7));
+  }
+
   private int gcd(int a, int b) {
     if (a == 0) {
       return b;
@@ -137,6 +194,8 @@ public class FiniteFieldsHomeworkTests {
       if (num % i == 0) return false;
     return true;
   }
+
+  public List<Integer> factor
 
 
 }

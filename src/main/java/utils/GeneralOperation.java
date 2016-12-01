@@ -49,4 +49,23 @@ public class GeneralOperation {
     }
     return false;
   }
+
+  public static boolean hasNthRoot(ExtensionField field, Polynomial polynomial, int rootOfUnity) {
+    for (int i = 1; i < field.underlying.prime - 1; i++) {
+      Polynomial powerPoly = field.power(polynomial, i);
+      if (powerPoly.equals(new Polynomial(new int[]{rootOfUnity}, field.underlying))) {
+        return true;
+      }
+    }
+    return false;
+    //Polynomial powerPoly = field.power(polynomial, rootOfUnity);
+    //if (powerPoly.equals(polynomial)) {
+    //  return true;
+    //}
+    //return false;
+  }
+
+  public static Polynomial nthRoot(ExtensionField field, Polynomial polynomial, int n) {
+    return field.power(polynomial, n);
+  }
 }
