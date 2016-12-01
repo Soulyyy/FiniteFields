@@ -1,10 +1,10 @@
-import java.util.List;
 import org.junit.Test;
-
 import utils.ExtensionField;
 import utils.FiniteField;
 import utils.GeneralOperation;
 import utils.Polynomial;
+
+import java.util.List;
 
 public class FiniteFieldsHomeworkTests {
 
@@ -42,7 +42,7 @@ public class FiniteFieldsHomeworkTests {
 
   private void printIfElementHasNthRootOfUnity(ExtensionField field, Polynomial polynomial, int n) {
     if (GeneralOperation.isNthRootOfUnity(field, polynomial, n)) {
-      System.out.println(polynomial.toString() + " is a "+n+"th root of unity");
+      System.out.println(polynomial.toString() + " is a " + n + "th root of unity");
     }
   }
 
@@ -63,10 +63,79 @@ public class FiniteFieldsHomeworkTests {
       FiniteField finiteField = new FiniteField(i);
       ExtensionField extensionField = new ExtensionField(finiteField, new Polynomial(new int[]{1, 1}, finiteField));
       Polynomial inverse = new Polynomial(new int[]{1}, finiteField).additiveInverse();
-      System.out.println(inverse);
+      //System.out.println(inverse);
       printIfElementHasNthRootOfUnity(extensionField, inverse, 4);
-      printIfElementHasNthRootOfUnity(extensionField, inverse, 5);
     }
+  }
+
+  @Test
+  public void seventhExercise() {
+    FiniteField field = new FiniteField(3);
+    ExtensionField extensionField = new ExtensionField(field, new Polynomial(new int[]{1, 1, 0, 2}, field));
+    List<Polynomial> polynomials = GeneralOperation.getAllFieldElements(extensionField);
+    Polynomial sum = new Polynomial(new int[]{0}, field);
+    for (Polynomial polynomial : polynomials) {
+      printIfElementHasNthRootOfUnity(extensionField, polynomial, 13);
+      if (GeneralOperation.isNthRootOfUnity(extensionField, polynomial, 13)) {
+        sum.add(polynomial.multiply(polynomial));
+      }
+    }
+    System.out.println(polynomials.size());
+    System.out.println(sum.toString());
+  }
+
+  @Test
+  public void exerciseSix() {
+    int count = 0;
+    for (int i = 3; i < 1000; i++) {
+      if(count >= 11) {
+        break;
+      }
+      if (isPrime(i)) {
+        //System.out.println(i);
+        if(isValidSolution(2, i)) {
+          System.out.println(i);
+          count++;
+        }
+        //System.out.println(isValidSolution(2, i));
+      }
+    }
+  }
+
+  private int gcd(int a, int b) {
+    if (a == 0) {
+      return b;
+    }
+    return gcd(b % a, a);
+  }
+
+  private int phi(int n) {
+    int resp = 1;
+    for (int i = 2; i < n; i++) {
+      if (gcd(i, n) == 1) {
+        resp++;
+      }
+    }
+    return resp;
+  }
+
+  private boolean isValidSolution(int el, int n) {
+    for (int i = 2; i < phi(n); i++) {
+      int val = (int) Math.round(Math.pow(el, i));
+      if (val % n == 1) {
+        return false;
+      }
+    }
+    return (int) Math.round(Math.pow(el, phi(n))) % n == 1;
+  }
+
+  private static boolean isPrime(int num) {
+    if (num < 2) return false;
+    if (num == 2) return true;
+    if (num % 2 == 0) return false;
+    for (int i = 3; i * i <= num; i += 2)
+      if (num % i == 0) return false;
+    return true;
   }
 
 
