@@ -31,4 +31,14 @@ public class FiniteField {
   public int forceElementToField(int element) {
     return ((element % prime) + prime) % prime;
   }
+
+  public int[] getAllFieldElements() {
+    int[] allValues = new int[prime];
+    int multiplicativeUnit = 1;
+    int additiveUnit = 0;
+    for (int i = 0; i < allValues.length; i++) {
+      allValues[i] = additiveUnit + multiplicativeUnit * i;
+    }
+    return forceToField(allValues);
+  }
 }
