@@ -4,13 +4,7 @@ import utils.FiniteField;
 import utils.GeneralOperation;
 import utils.Polynomial;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class FiniteFieldsHomeworkTests {
 
@@ -194,8 +188,5 @@ public class FiniteFieldsHomeworkTests {
       if (num % i == 0) return false;
     return true;
   }
-
-  public List<Integer> factor
-
 
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Polynomial {
+public class Polynomial implements Comparable {
 
   int[] polynomial;
   FiniteField finiteField;
@@ -229,10 +229,9 @@ public class Polynomial {
 
     int sizeToReduceby = 0;
     for (int i = 0; i < polynomial.length; i++) {
-      if(polynomial[i] == 0) {
-        sizeToReduceby = i+1;
-      }
-      else {
+      if (polynomial[i] == 0) {
+        sizeToReduceby = i + 1;
+      } else {
         break;
       }
     }
@@ -244,5 +243,33 @@ public class Polynomial {
       ar[i] = polynomial[i + sizeToReduceby];
     }
     return ar;
+  }
+
+  public int[] getPolynomial() {
+    return polynomial;
+  }
+
+
+  @Override
+  public int compareTo(Object o) {
+    if (o instanceof Polynomial) {
+      Polynomial second = (Polynomial) o;
+      if (this.degree() > second.degree()) {
+        return 1;
+      } else if (this.degree() < second.degree()) {
+        return -1;
+      } else {
+        for (int i = 0; i < this.degree(); i++) {
+          if (this.polynomial[i] > second.polynomial[i]) {
+            return 1;
+          } else if (this.polynomial[i] < second.polynomial[i]) {
+            return -1;
+          }
+        }
+        return 0;
+      }
+    } else {
+      return 0;
+    }
   }
 }

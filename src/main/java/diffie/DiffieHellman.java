@@ -20,4 +20,13 @@ public class DiffieHellman {
   public FiniteField getFiniteField() {
     return finiteField;
   }
+
+  public int calculatePolynomialValue(int x) {
+    int[] coefficients = polynomial.getPolynomial();
+    int accumulator = 0;
+    for (int i = 0; i < coefficients.length; i++) {
+      accumulator += Math.pow(x, i) * coefficients[coefficients.length - 1 - i];
+    }
+    return 0;
+  }
 }

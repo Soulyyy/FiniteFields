@@ -68,10 +68,14 @@ public class ExtensionField {
   }
 
   public Polynomial power(Polynomial polynomial, int power) {
-    Polynomial current = polynomial;
-    for (int i = 0; i < power - 1; i++) {
+    Polynomial current = new Polynomial(new int[]{1}, polynomial.finiteField);
+    for (int i = 0; i < power; i++) {
       current = multiply(current, polynomial);
     }
     return getPolynomialInField(current);
+  }
+
+  public int getDegree() {
+    return this.polynomial.degree();
   }
 }
