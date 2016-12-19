@@ -2,6 +2,7 @@ package grs;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.Arrays;
 
 public class IOUtils {
@@ -20,13 +21,21 @@ public class IOUtils {
       Integer[] vector = parseStringVector(vectorLine);
       Integer[] y = parseStringVector(yLine);
       return new GRS(fieldSize, n, k, parity, vector, y);
-    }
-    catch (Exception e) {
+    } catch (Exception e) {
       throw new IllegalStateException("Should not fail", e);
     }
   }
 
-  public void writeOutputFile() {
+  public void writeOutputFile(int[] output, String filename) {
+    try (PrintWriter out = new PrintWriter("src/main/resources" + filename)) {
+      StringBuilder builder = new StringBuilder();
+      for (int i : output) {
+        builder.append(i).append(" ");
+      }
+      out.println(builder.toString().trim());
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
 
   }
 

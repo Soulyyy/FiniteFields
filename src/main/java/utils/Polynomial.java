@@ -7,7 +7,7 @@ import java.util.List;
 public class Polynomial implements Comparable {
 
   int[] polynomial;
-  FiniteField finiteField;
+  public FiniteField finiteField;
 
   public Polynomial(int[] polynomial, FiniteField finiteField) {
     this.polynomial = polynomial;
@@ -91,7 +91,7 @@ public class Polynomial implements Comparable {
       return new Polynomial[]{this, new Polynomial(new int[]{0}, finiteField)};
     }
     int[] ar = new int[degree + 1];
-    int coef = this.polynomial[0] / polynomial.polynomial[0];
+    int coef = finiteField.divide(this.polynomial[0], polynomial.polynomial[0]);
     ar[0] = coef;
     Polynomial newPoly = new Polynomial(ar, finiteField);
     Polynomial multiplicationResult = newPoly.multiply(polynomial);
@@ -243,6 +243,14 @@ public class Polynomial implements Comparable {
       ar[i] = polynomial[i + sizeToReduceby];
     }
     return ar;
+  }
+
+  public int evaluate(int x) {
+    int accumulator = 0;
+    for (int i = 0; i < polynomial.length; i++) {
+      accumulator = finiteField.add(accumulator, finiteField.multiply(finiteField.power(x, polynomial.length - i), polynomial[i]));
+    }
+    return accumulator;
   }
 
   public int[] getPolynomial() {
