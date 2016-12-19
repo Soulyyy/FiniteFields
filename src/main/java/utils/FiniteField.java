@@ -41,4 +41,28 @@ public class FiniteField {
     }
     return forceToField(allValues);
   }
+
+  public int add(int first, int second) {
+    return forceElementToField(first + second);
+  }
+
+  public int subtract(int first, int second) {
+    return forceElementToField(first - second);
+  }
+
+  public int multiply(int first, int second) {
+    return forceElementToField(first * second);
+  }
+
+  public int divide(int first, int second) {
+    return forceElementToField(first * findElementMultiplicativeInverse(second));
+  }
+
+  public int power(int first, int power) {
+    int response = 1;
+    for (int i = 0; i < power; i++) {
+      response = multiply(first, response);
+    }
+    return response;
+  }
 }
