@@ -78,8 +78,9 @@ public class Polynomial implements Comparable {
 
 
   public Polynomial[] divide(Polynomial polynomial) {
-    if (this.degree() == 0 && polynomial.polynomial[0] == 0) {
-      throw new IllegalStateException("Division by a zero polynomial");
+    if (this.degree() == 0 && polynomial.polynomial[0] == 0 || polynomial.degree() == 0) {
+      return new Polynomial[]{this, new Polynomial(new int[]{0}, finiteField)};
+      //throw new IllegalStateException("Division by a zero polynomial");
     }
     if (this.degree() < polynomial.degree()) {
       Polynomial result = new Polynomial(new int[0], finiteField);
@@ -150,8 +151,8 @@ public class Polynomial implements Comparable {
 
   public int degree() {
     for (int i = 0; i < polynomial.length; i++) {
-      if (i != 0) {
-        return polynomial.length - i;
+      if (polynomial[i] != 0) {
+        return polynomial.length - i -1;
       }
     }
     return 0;

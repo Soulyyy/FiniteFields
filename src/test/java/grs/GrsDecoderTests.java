@@ -1,5 +1,7 @@
 package grs;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -54,6 +56,16 @@ public class GrsDecoderTests {
     System.out.println(builder.toString().trim());
   }
 
+  @Test
+  public void testInput() {
+    GRS grs = IOUtils.readInputFile("src/main/resources/Input.txt");
+    int[] decoded = grs.decode();
+    int[] output = ArrayUtils.toPrimitive(IOUtils.readOutputFile("src/main/resources/Output.txt"));
+    System.out.println(Arrays.toString(decoded));
+    System.out.println(Arrays.toString(output));
+    Assert.assertArrayEquals(decoded, output);
+  }
+
   public void printMatrix(int[][] matrix) {
     StringBuilder builder = new StringBuilder();
     for(int[] row : matrix) {
@@ -64,4 +76,5 @@ public class GrsDecoderTests {
     }
     System.out.println(builder.toString());
   }
+
 }

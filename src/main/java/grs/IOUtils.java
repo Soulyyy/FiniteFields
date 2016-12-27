@@ -43,4 +43,12 @@ public class IOUtils {
     String[] strings = string.split(" ");
     return Arrays.stream(strings).map(Integer::parseInt).toArray(Integer[]::new);
   }
+
+  public static Integer[] readOutputFile(String fileName) {
+    try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
+     return parseStringVector(bufferedReader.readLine());
+    } catch (Exception e) {
+      throw new IllegalStateException("Should not fail", e);
+    }
+  }
 }
